@@ -10,6 +10,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/api/date", (req, res) => {
+  res.json({
+    date: new Date(),
+  });
+});
+
 app.use(express.static(wwwDir));
 app.use(serveIndex(wwwDir, { icons: true }));
 
