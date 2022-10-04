@@ -8,4 +8,11 @@ app.get("/date", (req, res) => {
   });
 });
 
+app.use(express.json());
+
+app.post("/articles", (req, res) => {
+  console.log("req.body: ", req.body);
+  res.status(201).end();
+});
+
 module.exports = app;
