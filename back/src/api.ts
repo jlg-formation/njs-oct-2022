@@ -1,5 +1,5 @@
-const express = require("express");
-const rest = require("./rest");
+import express from "express";
+import { rest } from "./rest";
 
 const app = express.Router();
 
@@ -14,4 +14,4 @@ app.use(express.json());
 app.use("/articles", rest("articles"));
 app.use("/users", rest("users"));
 
-module.exports = app;
+export const api = app;

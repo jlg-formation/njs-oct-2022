@@ -1,13 +1,11 @@
-(() => {
-  module.exports = (resourceName: string) => {
-    const express = require("express");
+import express from "express";
 
-    const app = express.Router();
+export const rest = (resourceName: string) => {
+  const app = express.Router();
 
-    app.get("/", (req, res) => {
-      res.json([]);
-    });
+  app.get("/", (req, res) => {
+    res.json([]);
+  });
 
-    return app;
-  };
-})();
+  return app;
+};
