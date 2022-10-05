@@ -1,4 +1,5 @@
 const express = require("express");
+const rest = require("./rest");
 
 const app = express.Router();
 
@@ -10,9 +11,7 @@ app.get("/date", (req, res) => {
 
 app.use(express.json());
 
-app.post("/articles", (req, res) => {
-  console.log("req.body: ", req.body);
-  res.status(201).end();
-});
+app.use("/articles", rest("articles"));
+app.use("/users", rest("users"));
 
 module.exports = app;
