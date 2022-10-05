@@ -33,12 +33,11 @@ export const rest = (resourceName: string) => {
   app.delete("/", (req, res) => {
     (async () => {
       try {
-        const ids: string[] = req.body;
+        const ids: string[] | undefined =
+          req.body instanceof Array ? req.body : undefined;
         console.log("ids: ", ids);
 
-        ids instanceof Array
-          ? await service.deleteMany(ids)
-          : await service.deleteAll();
+        ids ? await service.deleteMany(ids) : await service.deleteAll();
         res.status(204).end();
       } catch (err) {
         console.log("err: ", err);
