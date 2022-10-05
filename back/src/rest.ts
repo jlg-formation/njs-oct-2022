@@ -34,10 +34,14 @@ export const rest = (resourceName: string) => {
     (async () => {
       try {
         const ids: string[] = req.body;
+        console.log("ids: ", ids);
 
-        ids ? await service.deleteMany(ids) : await service.deleteAll();
+        ids instanceof Array
+          ? await service.deleteMany(ids)
+          : await service.deleteAll();
         res.status(204).end();
       } catch (err) {
+        console.log("err: ", err);
         res.status(500).end();
       }
     })();
