@@ -9,8 +9,6 @@ app.get("/date", (req, res) => {
   });
 });
 
-app.use(express.json());
-
 app.use("/articles", rest("articles"));
 app.use("/users", rest("users"));
 
