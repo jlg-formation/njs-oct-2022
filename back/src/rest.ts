@@ -30,5 +30,18 @@ export const rest = (resourceName: string) => {
     })();
   });
 
+  app.delete("/", (req, res) => {
+    (async () => {
+      try {
+        const ids: string[] = req.body;
+
+        ids ? await service.deleteMany(ids) : await service.deleteAll();
+        res.status(204).end();
+      } catch (err) {
+        res.status(500).end();
+      }
+    })();
+  });
+
   return app;
 };
