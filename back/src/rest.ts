@@ -16,6 +16,17 @@ export const rest = (resourceName: string) => {
     })();
   });
 
+  app.get("/:id", (req, res) => {
+    (async () => {
+      try {
+        const resource = await service.retrieveOne(req.params.id);
+        res.json(resource);
+      } catch (err) {
+        res.status(500).end();
+      }
+    })();
+  });
+
   app.use(express.json());
 
   app.post("/", (req, res) => {

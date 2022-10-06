@@ -33,4 +33,8 @@ export class RAMService {
   async retrieveAll() {
     return this.resources;
   }
+
+  retrieveOne(id: string) {
+    return this.resources.find((r) => r.id === id);
+  }
 }
