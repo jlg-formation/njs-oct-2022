@@ -3,16 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "mocha",
-    "test:watch": "mocha -w",
-    "start:prod": "node dist/server.js",
-    "start": "nodemon src/server.ts",
+    "test": "mocha -r dotenv/config",
+    "test:watch": "mocha -r dotenv/config -w",
+    "start:prod": "node -r dotenv/config dist/server.js",
+    "start": "nodemon -r dotenv/config src/server.ts",
     "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "serve-index": "^1.9.1",
     "uuid": "^9.0.0"

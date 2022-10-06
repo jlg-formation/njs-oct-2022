@@ -2,7 +2,7 @@ import assert from "assert";
 import axios from "axios";
 import { WebServer } from "../src/WebServer";
 
-const port = 3555;
+const port = +(process.env.TEST_PORT || 3555);
 
 describe("WebServer", () => {
   it("should start, verify, stop the server", async () => {
