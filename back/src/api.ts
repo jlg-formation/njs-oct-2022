@@ -9,6 +9,10 @@ app.get("/date", (req, res) => {
   });
 });
 
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
 app.use("/articles", rest("articles"));
 app.use("/users", rest("users"));
 
