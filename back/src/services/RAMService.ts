@@ -1,12 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 import { Idable } from "../interfaces/Idable";
+import { AbstractStorageService } from "./AbstractStorageService";
 
-export class RAMService {
+export class RAMService extends AbstractStorageService {
   private static instance: RAMService | undefined;
 
   resources: Idable[] = [];
 
-  constructor(private resourceName: string) {}
+  constructor(private resourceName: string) {
+    super();
+  }
 
   static getInstance(resourceName: string): RAMService {
     if (RAMService.instance === undefined) {
@@ -15,26 +18,26 @@ export class RAMService {
     return RAMService.instance;
   }
 
-  async create(newResource: unknown): Promise<string> {
+  override async create(newResource: unknown): Promise<string> {
     const id = uuidv4();
     const r = { ...(newResource as object), id: id };
     this.resources.push(r);
     return id;
   }
 
-  async deleteAll() {
+  override async deleteAll() {
     this.resources.length = 0;
   }
 
-  async deleteMany(ids: string[]) {
+  override async deleteMany(ids: string[]) {
     this.resources = this.resources.filter((r) => !ids.includes(r.id));
   }
 
-  async retrieveAll() {
+  override async retrieveAll() {
     return this.resources;
   }
 
-  retrieveOne(id: string) {
+  override async retrieveOne(id: string) {
     return this.resources.find((r) => r.id === id);
   }
 }

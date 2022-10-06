@@ -1,9 +1,11 @@
 import express from "express";
+import { RestOptions } from "./interfaces/RestOptions";
 import { RAMService } from "./services/RAMService";
+import { StorageServiceFactory } from "./services/StorageServiceFactory";
 
-export const rest = (resourceName: string) => {
+export const rest = (resourceName: string, options?: Partial<RestOptions>) => {
   const app = express.Router();
-  const service = RAMService.getInstance(resourceName);
+  const service = StorageServiceFactory.getInstance(resourceName, options);
 
   app.get("/", (req, res) => {
     (async () => {
