@@ -13,7 +13,10 @@ app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-app.use("/articles", rest("articles", { storageType: "RAM" }));
+app.use(
+  "/articles",
+  rest("articles", { storageType: "File", path: "./data/articles.json" })
+);
 app.use("/users", rest("users", { storageType: "RAM" }));
 
 export const api = app;

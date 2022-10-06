@@ -3,7 +3,7 @@ import { RestOptions } from "./interfaces/RestOptions";
 import { RAMService } from "./services/RAMService";
 import { StorageServiceFactory } from "./services/StorageServiceFactory";
 
-export const rest = (resourceName: string, options?: Partial<RestOptions>) => {
+export const rest = (resourceName: string, options?: RestOptions) => {
   const app = express.Router();
   const service = StorageServiceFactory.getInstance(resourceName, options);
 
