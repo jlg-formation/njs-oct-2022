@@ -1,6 +1,5 @@
 import express from "express";
 import { RestOptions } from "./interfaces/RestOptions";
-import { RAMService } from "./services/RAMService";
 import { StorageServiceFactory } from "./services/StorageServiceFactory";
 
 export const rest = (resourceName: string, options?: RestOptions) => {

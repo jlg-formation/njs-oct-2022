@@ -8,7 +8,7 @@ export class FileService extends RAMService {
     this.read();
   }
 
-  override async create(newResource: any): Promise<string> {
+  override async create(newResource: unknown): Promise<string> {
     const id = await super.create(newResource);
     this.save();
     return id;
