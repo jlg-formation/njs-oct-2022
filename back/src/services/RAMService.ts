@@ -3,19 +3,10 @@ import { Idable } from "../interfaces/Idable";
 import { AbstractStorageService } from "./AbstractStorageService";
 
 export class RAMService extends AbstractStorageService {
-  private static instance: RAMService | undefined;
-
   resources: Idable[] = [];
 
   constructor(private resourceName: string) {
     super();
-  }
-
-  static getInstance(resourceName: string): RAMService {
-    if (RAMService.instance === undefined) {
-      RAMService.instance = new RAMService(resourceName);
-    }
-    return RAMService.instance;
   }
 
   override async create(newResource: unknown): Promise<string> {
