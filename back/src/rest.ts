@@ -33,6 +33,10 @@ export const rest = (resourceName: string) => {
   app.delete("/", (req, res) => {
     (async () => {
       try {
+        if (JSON.stringify(req.body) !== "{}" && !(req.body instanceof Array)) {
+          res.status(400).send("body exists but is not an array.");
+          return;
+        }
         const ids: string[] | undefined =
           req.body instanceof Array ? req.body : undefined;
         console.log("ids: ", ids);
