@@ -15,6 +15,18 @@ export const rest = (
     options
   );
 
+  app.use((req, res, next) => {
+    if (service.isReady) {
+      console.log("already ready");
+      next();
+      return;
+    }
+    service.on("isReady", () => {
+      console.log("event isReady");
+      next();
+    });
+  });
+
   app.get("/", (req, res) => {
     (async () => {
       try {

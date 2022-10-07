@@ -1,5 +1,6 @@
 import { Document, MongoClient, ObjectId, OptionalId } from "mongodb";
 import { Idable } from "../interfaces/Idable";
+import { sleep } from "../utils";
 import { WebServer } from "../WebServer";
 import { AbstractStorageService } from "./AbstractStorageService";
 import { convertDocToResource } from "./mongo/utils";
@@ -13,8 +14,11 @@ export class MongoService extends AbstractStorageService {
   ) {
     super();
     (async () => {
+      await sleep(1);
       await this.client.connect();
       console.log("connected to mongo.");
+      this.isReady = true;
+      this.emit("isReady");
     })();
 
     webServer.server.on("close", async () => {

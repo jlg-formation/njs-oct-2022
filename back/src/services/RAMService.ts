@@ -7,6 +7,7 @@ export class RAMService extends AbstractStorageService {
 
   constructor(private resourceName: string) {
     super();
+    this.isReady = true;
   }
 
   override async create(newResource: unknown): Promise<string> {
