@@ -12,6 +12,7 @@ export const rest = (resourceName: string, options?: RestOptions) => {
         const resources = await service.retrieveAll();
         res.json(resources);
       } catch (err) {
+        console.log("err: ", err);
         res.status(500).end();
       }
     })();
@@ -23,6 +24,7 @@ export const rest = (resourceName: string, options?: RestOptions) => {
         const resource = await service.retrieveOne(req.params.id);
         res.json(resource);
       } catch (err) {
+        console.log("err: ", err);
         res.status(500).end();
       }
     })();
@@ -37,6 +39,7 @@ export const rest = (resourceName: string, options?: RestOptions) => {
         const newResourceId = await service.create(newResource);
         res.status(201).json({ id: newResourceId });
       } catch (err) {
+        console.log("err: ", err);
         res.status(500).end();
       }
     })();

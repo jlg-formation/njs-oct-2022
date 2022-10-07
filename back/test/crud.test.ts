@@ -6,7 +6,7 @@ import { newArticle } from "./data/articles";
 describe("CRUD", () => {
   const port = +(process.env.TEST_PORT || 3555);
   const server = new WebServer({ port: port });
-  const apiUrl = `http://localhost:${port}/api/articles`;
+  const apiUrl = `http://localhost:${port}/api/groups`;
 
   before(async () => {
     await server.start();

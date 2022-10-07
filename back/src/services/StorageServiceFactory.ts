@@ -1,6 +1,7 @@
 import { RestOptions } from "../interfaces/RestOptions";
 import { AbstractStorageService } from "./AbstractStorageService";
 import { FileService } from "./FileService";
+import { MongoService } from "./MongoService";
 import { RAMService } from "./RAMService";
 
 export class StorageServiceFactory {
@@ -15,7 +16,7 @@ export class StorageServiceFactory {
         case "File":
           return new FileService(resourceName, options.path);
         case "Mongo":
-          throw new Error("todo");
+          return new MongoService(resourceName, options.url);
       }
     }
     return new RAMService(resourceName);
