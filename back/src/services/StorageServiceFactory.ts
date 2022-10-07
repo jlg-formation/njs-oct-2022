@@ -1,4 +1,5 @@
 import { RestOptions } from "../interfaces/RestOptions";
+import { WebServer } from "../WebServer";
 import { AbstractStorageService } from "./AbstractStorageService";
 import { FileService } from "./FileService";
 import { MongoService } from "./MongoService";
@@ -6,6 +7,7 @@ import { RAMService } from "./RAMService";
 
 export class StorageServiceFactory {
   static getInstance(
+    webServer: WebServer,
     resourceName: string,
     options?: RestOptions
   ): AbstractStorageService {
@@ -16,7 +18,7 @@ export class StorageServiceFactory {
         case "File":
           return new FileService(resourceName, options.path);
         case "Mongo":
-          return new MongoService(resourceName, options.url);
+          return new MongoService(webServer, resourceName, options.url);
       }
     }
     return new RAMService(resourceName);

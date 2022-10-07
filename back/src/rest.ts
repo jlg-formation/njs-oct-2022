@@ -1,10 +1,19 @@
 import express from "express";
 import { RestOptions } from "./interfaces/RestOptions";
 import { StorageServiceFactory } from "./services/StorageServiceFactory";
+import { WebServer } from "./WebServer";
 
-export const rest = (resourceName: string, options?: RestOptions) => {
+export const rest = (
+  webServer: WebServer,
+  resourceName: string,
+  options?: RestOptions
+) => {
   const app = express.Router();
-  const service = StorageServiceFactory.getInstance(resourceName, options);
+  const service = StorageServiceFactory.getInstance(
+    webServer,
+    resourceName,
+    options
+  );
 
   app.get("/", (req, res) => {
     (async () => {

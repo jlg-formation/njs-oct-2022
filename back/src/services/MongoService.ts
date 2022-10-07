@@ -1,16 +1,26 @@
 import { Document, MongoClient, ObjectId, OptionalId } from "mongodb";
 import { Idable } from "../interfaces/Idable";
+import { WebServer } from "../WebServer";
 import { AbstractStorageService } from "./AbstractStorageService";
 import { convertDocToResource } from "./mongo/utils";
 
 export class MongoService extends AbstractStorageService {
   client = new MongoClient(this.url);
-  constructor(private resourceName: string, private url: string) {
+  constructor(
+    private webServer: WebServer,
+    private resourceName: string,
+    private url: string
+  ) {
     super();
     (async () => {
       await this.client.connect();
       console.log("connected to mongo.");
     })();
+
+    webServer.server.on("close", async () => {
+      await this.client.close();
+      console.log("mongo disconnected.");
+    });
   }
 
   async create(newResource: unknown): Promise<string> {
