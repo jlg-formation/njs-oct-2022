@@ -5,9 +5,18 @@ interface FileOptions {
 interface RAMOptions {
   storageType: "RAM";
 }
-interface DBOptions {
+interface MongoOptions {
   storageType: "Mongo";
   url: string;
 }
 
-export type RestOptions = FileOptions | RAMOptions | DBOptions;
+interface MongooseOptions {
+  storageType: "Mongoose";
+  url: string;
+}
+
+export type RestOptions =
+  | FileOptions
+  | RAMOptions
+  | MongoOptions
+  | MongooseOptions;

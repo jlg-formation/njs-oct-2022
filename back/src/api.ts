@@ -30,6 +30,14 @@ export const api = (webServer: WebServer) => {
       url: process.env.MONGO_URL || "mongodb://localhost:27017/gestion-stock",
     })
   );
+  app.use(
+    "/roles",
+    rest(webServer, "roles", {
+      storageType: "Mongoose",
+      url:
+        process.env.MONGOOSE_URL || "mongodb://localhost:27017/gestion-stock",
+    })
+  );
 
   return app;
 };
