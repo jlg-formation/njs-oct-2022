@@ -18,6 +18,12 @@ export const api = (webServer: WebServer) => {
     res.send("pong");
   });
 
+  app.get("/crash", (req, res) => {
+    (async () => {
+      throw new Error("crash");
+    })();
+  });
+
   app.use(
     "/articles",
     rest(webServer, "articles", {
