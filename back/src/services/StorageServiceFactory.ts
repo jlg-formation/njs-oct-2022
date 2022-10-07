@@ -21,7 +21,12 @@ export class StorageServiceFactory {
         case "Mongo":
           return new MongoService(webServer, resourceName, options.url);
         case "Mongoose":
-          return new MongooseService(webServer, resourceName, options.url);
+          return new MongooseService(
+            webServer,
+            resourceName,
+            options.url,
+            options.model
+          );
       }
     }
     return new RAMService(resourceName);

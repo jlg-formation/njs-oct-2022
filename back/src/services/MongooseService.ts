@@ -7,7 +7,12 @@ import { AbstractStorageService } from "./AbstractStorageService";
 import { convertDocToResource } from "./mongo/utils";
 
 export class MongooseService extends AbstractStorageService {
-  constructor(webServer: WebServer, private resourceName: string, url: string) {
+  constructor(
+    webServer: WebServer,
+    private resourceName: string,
+    url: string,
+    private model: mongoose.Model<any>
+  ) {
     super();
     (async () => {
       await sleep(1);
@@ -23,19 +28,36 @@ export class MongooseService extends AbstractStorageService {
     });
   }
 
-  create(newResource: any): Promise<string> {
-    throw new Error("Method not implemented.");
+  async create(newResource: any): Promise<string> {
+    const m = new this.model(newResource);
+    await m.save();
+    console.log("m after save: ", m);
+    const id = m._id.toHexString();
+    console.log("id: ", id);
+    return id;
   }
-  deleteAll(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteAll(): Promise<void> {
+    await this.model.deleteMany({});
   }
   deleteMany(ids: string[]): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  retrieveAll(): Promise<Idable[]> {
-    throw new Error("Method not implemented.");
+  async retrieveAll(): Promise<Idable[]> {
+    const array = await this.model.find({}).select("-__v").exec();
+    console.log("array: ", array);
+    const resources = array.map((item) => convertDocToResource(item._doc));
+    console.log("resources: ", resources);
+    return resources;
   }
-  retrieveOne(id: string): Promise<Idable | undefined> {
-    throw new Error("Method not implemented.");
+  async retrieveOne(id: string): Promise<Idable | undefined> {
+    try {
+      const result = await this.model.findById(id).select("-__v").exec();
+      console.log("result: ", result);
+      const resource = convertDocToResource(result._doc);
+      console.log("resource: ", resource);
+      return resource;
+    } catch (err) {
+      return undefined;
+    }
   }
 }

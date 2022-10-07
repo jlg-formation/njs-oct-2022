@@ -1,5 +1,8 @@
 import express from "express";
+import mongoose from "mongoose";
+import { Role } from "./interfaces/Role";
 import { rest } from "./rest";
+import { RoleModel } from "./schemas/RoleModel";
 import { WebServer } from "./WebServer";
 
 export const api = (webServer: WebServer) => {
@@ -30,12 +33,14 @@ export const api = (webServer: WebServer) => {
       url: process.env.MONGO_URL || "mongodb://localhost:27017/gestion-stock",
     })
   );
+
   app.use(
     "/roles",
     rest(webServer, "roles", {
       storageType: "Mongoose",
       url:
         process.env.MONGOOSE_URL || "mongodb://localhost:27017/gestion-stock",
+      model: RoleModel,
     })
   );
 

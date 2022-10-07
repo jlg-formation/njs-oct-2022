@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 interface FileOptions {
   storageType: "File";
   path: string;
@@ -13,6 +15,7 @@ interface MongoOptions {
 interface MongooseOptions {
   storageType: "Mongoose";
   url: string;
+  model: mongoose.Model<any>;
 }
 
 export type RestOptions =
